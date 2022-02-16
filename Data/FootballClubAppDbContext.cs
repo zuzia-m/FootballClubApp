@@ -24,6 +24,18 @@ public class FootballClubAppDbContext : DbContext
             .Property(p => p.Position)
             .IsRequired();
 
+        modelBuilder.Entity<Player>()
+            .Property(p => p.Nationality)
+            .IsRequired();
+
+        modelBuilder.Entity<Player>()
+            .Property(p => p.WeeklyWage)
+            .HasColumnType("decimal(18,4)");
+
+        modelBuilder.Entity<Player>()
+            .Property(p => p.MarketValue)
+            .HasColumnType("decimal(18,4)");
+
         modelBuilder.Entity<Opponent>()
             .Property(p => p.TeamName)
             .IsRequired()
