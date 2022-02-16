@@ -3,6 +3,7 @@ using FootballClubApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FootballClubApp.Migrations
 {
     [DbContext(typeof(FootballClubAppDbContext))]
-    partial class FootballClubAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220130195041_DataSeed")]
+    partial class DataSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,14 +59,8 @@ namespace FootballClubApp.Migrations
                         new
                         {
                             Id = 3,
-                            Competition = 4,
+                            Competition = 3,
                             TeamName = "SSC Napoli"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Competition = 1,
-                            TeamName = "Athletic Bilbao"
                         });
                 });
 
@@ -143,15 +139,6 @@ namespace FootballClubApp.Migrations
                             IsCaptain = true,
                             LastName = "Busquets",
                             Number = "5",
-                            Position = 3
-                        },
-                        new
-                        {
-                            Id = 6,
-                            FirstName = "Nico",
-                            IsCaptain = false,
-                            LastName = "Gonzalez",
-                            Number = "14",
                             Position = 3
                         });
                 });

@@ -1,7 +1,5 @@
 ﻿namespace FootballClubApp.Repositories;
 
-using FootballClubApp.Entities;
-
 public interface IWriteRepository<in T> where T : class, IEntity
 {
     void Add(T item);

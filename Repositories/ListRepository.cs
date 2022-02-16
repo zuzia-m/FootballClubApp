@@ -1,86 +1,82 @@
-﻿namespace FootballClubApp.Repositories
-{
-    using FootballClubApp.Repositories.Extensions;
-    using FootballClubApp.Entities;
-    using System.Collections.Generic;
-    using System.Text.Json;
+﻿namespace FootballClubApp.Repositories;
 
-    public class ListRepository<T> : IRepository<T>
+using System.Text.Json;
+
+public class ListRepository<T> : IRepository<T>
         where T : class, IEntity, new()
+{
+    private readonly List<T> _items = new();
+    private int lastUsedId = 1;
+    private readonly string path = $"{typeof(T).Name}_save.json";
+
+    public event EventHandler<T>? ItemAdded;
+    public event EventHandler<T>? ItemRemoved;
+
+    public IEnumerable<T> GetAll()
     {
-        private List<T> _items = new();
-        private int lastUsedId = 1;
-        private readonly string path = $"{typeof(T).Name}_save.json";
+        return _items.ToList();
+    }
 
-        public event EventHandler<T>? ItemAdded;
-        public event EventHandler<T>? ItemRemoved;
-
-        public IEnumerable<T> GetAll()
+    public void Add(T item)
+    {
+        if (_items.Count == 0)
         {
-            return _items.ToList();
+            item.Id = lastUsedId;
+            lastUsedId++;
+        }
+        else if (_items.Count > 0)
+        {
+            lastUsedId = _items[_items.Count - 1].Id;
+            item.Id = ++lastUsedId;
         }
 
-        public void Add(T item)
+        _items.Add(item);
+        ItemAdded?.Invoke(this, item);
+    }
+
+    public T? GetById(int id)
+    {
+        var itemById = _items.SingleOrDefault(item => item.Id == id);
+        if (itemById == null)
         {
-            if (_items.Count == 0)
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Object {typeof(T).Name} with id {id} not found.");
+            Console.ResetColor();
+        }
+        return itemById;
+    }
+
+    public void Remove(T item)
+    {
+        _items.Remove(item);
+        ItemRemoved?.Invoke(this, item);
+    }
+
+    public void Save()
+    {
+        File.Delete(path);
+        var objectsSerialized = JsonSerializer.Serialize<IEnumerable<T>>(_items);
+        File.WriteAllText(path, objectsSerialized);
+    }
+    public IEnumerable<T> Read()
+    {
+        if (File.Exists(path))
+        {
+            var objectsSerialized = File.ReadAllText(path);
+            var deserializedObjects = JsonSerializer.Deserialize<IEnumerable<T>>(objectsSerialized);
+            if (deserializedObjects != null)
             {
-                item.Id = lastUsedId;
-                lastUsedId++;
-            }
-            else if (_items.Count > 0)
-            {
-                lastUsedId = _items[_items.Count - 1].Id;
-                item.Id = ++lastUsedId;
-            }
-
-            _items.Add(item);
-            ItemAdded?.Invoke(this, item);
-        }
-
-        public T? GetById(int id)
-        {
-            var itemById = _items.SingleOrDefault(item => item.Id == id);
-            if (itemById == null)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Object {typeof(T).Name} with id {id} not found.");
-                Console.ResetColor();
-            }
-            return itemById;
-        }
-
-        public void Remove(T item)
-        {
-            _items.Remove(item);
-            ItemRemoved?.Invoke(this, item);
-        }
-
-        public void Save()
-        {
-            File.Delete(path);
-            var objectsSerialized = JsonSerializer.Serialize<IEnumerable<T>>(_items);
-            File.WriteAllText(path, objectsSerialized);
-        }
-        public IEnumerable<T> Read()
-        {
-            if (File.Exists(path))
-            {
-                var objectsSerialized = File.ReadAllText(path);
-                var deserializedObjects = JsonSerializer.Deserialize<IEnumerable<T>>(objectsSerialized);
-                if (deserializedObjects != null)
+                foreach (var item in deserializedObjects)
                 {
-                    foreach (var item in deserializedObjects)
-                    {
-                        _items.Add(item);
-                    }
+                    _items.Add(item);
                 }
             }
-            return _items;
         }
+        return _items;
+    }
 
-        public int GetListCount()
-        {
-            return _items.Count;
-        }
+    public int GetListCount()
+    {
+        return _items.Count;
     }
 }

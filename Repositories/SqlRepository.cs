@@ -1,22 +1,16 @@
 ﻿namespace FootballClubApp.Repositories;
 
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using FootballClubApp.Entities;
-using FootballClubApp.Data;
 
 public class SqlRepository<T> : IRepository<T> where T : class, IEntity, new()
 {
     private readonly FootballClubAppDbContext _dbContext;
     private readonly DbSet<T> _dbSet;
-    private readonly FootballAppSeeder _seeder;
 
     public SqlRepository(FootballClubAppDbContext dbContext)
     {
         _dbContext = dbContext;
         _dbSet = _dbContext.Set<T>();
-        _seeder = new FootballAppSeeder(dbContext);
-        _seeder.Seed();
     }
 
     public event EventHandler<T>? ItemAdded;
@@ -49,5 +43,15 @@ public class SqlRepository<T> : IRepository<T> where T : class, IEntity, new()
     public void Save()
     {
         _dbContext.SaveChanges();
+    }
+
+    public IEnumerable<T> Read()
+    {
+        return _dbSet.ToList();
+    }
+
+    public int GetListCount()
+    {
+        return Read().ToList().Count;
     }
 }
