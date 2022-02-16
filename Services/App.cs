@@ -14,6 +14,7 @@ public class App : IApp
     }
     public void Run()
     {
+        Console.OutputEncoding = Encoding.UTF8;
         Console.ForegroundColor = ConsoleColor.White;
         Console.BackgroundColor = ConsoleColor.DarkMagenta;
         Console.WriteLine("Hello to the [Football Club App] console app.\n\n");

@@ -22,7 +22,7 @@ public class EventHandlerService : IEventHandlerService
     {
         AddAuditInfo(e, "PLAYER ADDED");
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"Player [{e}] added successfully.");
+        Console.WriteLine($"Player\n{e}\nadded successfully.\n");
         Console.ResetColor();
     }
 
@@ -30,7 +30,7 @@ public class EventHandlerService : IEventHandlerService
     {
         AddAuditInfo(e, "PLAYER REMOVED");
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"Player [{e}] removed successfully");
+        Console.WriteLine($"Player\n{e}\nremoved successfully.\n");
         Console.ResetColor();
     }
 
@@ -38,7 +38,7 @@ public class EventHandlerService : IEventHandlerService
     {
         AddAuditInfo(e, "OPPONENT ADDED");
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"Opponent [{e}] added successfully.");
+        Console.WriteLine($"Opponent\n{e}\nadded successfully.\n");
         Console.ResetColor();
     }
 
@@ -46,14 +46,14 @@ public class EventHandlerService : IEventHandlerService
     {
         AddAuditInfo(e, "OPPONENT REMOVED");
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"Opponent [{e}] removed successfully");
+        Console.WriteLine($"Opponent\n{e}\nremoved successfully.\n");
         Console.ResetColor();
     }
     private void AddAuditInfo<T>(T e, string info) where T : class, IEntity
     {
         using (var writer = File.AppendText((IRepository<IEntity>.auditFileName)))
         {
-            writer.WriteLine($"[{DateTime.UtcNow}]-----{info}-----[{e}]");
+            writer.WriteLine($"[{DateTime.UtcNow}]\t{info} :\n    [{e}]");
         }
     }
 }
