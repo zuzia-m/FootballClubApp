@@ -1,13 +1,13 @@
 ﻿namespace FootballClubApp.Services;
 
-public class DataProviderSql : DataProvider, IDataProvider
+public class DataGeneratorSql : DataGenerator, IDataGenerator
 {
     private readonly FootballClubAppDbContext _dbContext;
-    public DataProviderSql(FootballClubAppDbContext dbContext)
+    public DataGeneratorSql(FootballClubAppDbContext dbContext)
     {
         _dbContext = dbContext;
     }
-    public override void ViewDataProviderInfo()
+    public override void ViewDataSourceInfo()
     {
         Console.BackgroundColor = ConsoleColor.DarkGray;
         Console.ForegroundColor = ConsoleColor.Black;

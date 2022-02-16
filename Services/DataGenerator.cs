@@ -1,8 +1,8 @@
 ﻿namespace FootballClubApp.Services;
 
-public abstract class DataProvider : IDataProvider
+public abstract class DataGenerator : IDataGenerator
 {
-    public abstract void ViewDataProviderInfo();
+    public abstract void ViewDataSourceInfo();
     public abstract void AddOpponents();
     public abstract void AddPlayers();
 

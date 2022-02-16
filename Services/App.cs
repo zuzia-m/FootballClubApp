@@ -2,11 +2,11 @@
 
 public class App : IApp
 {
-    private readonly IDataProvider _dataProvider;
+    private readonly IDataGenerator _dataProvider;
     private readonly IUserCommunication _userCommunication;
     private readonly IEventHandlerService _eventHandlerService;
 
-    public App(IDataProvider dataProvider, IUserCommunication userCommunication, IEventHandlerService eventHandlerService)
+    public App(IDataGenerator dataProvider, IUserCommunication userCommunication, IEventHandlerService eventHandlerService)
     {
         _dataProvider = dataProvider;
         _userCommunication = userCommunication;
@@ -27,7 +27,7 @@ public class App : IApp
 
         _eventHandlerService.SubscribeToEvents();
 
-        _dataProvider.ViewDataProviderInfo();
+        _dataProvider.ViewDataSourceInfo();
         _dataProvider.AddPlayers();
         _dataProvider.AddOpponents();
 

@@ -1,16 +1,16 @@
 ﻿namespace FootballClubApp.Services;
 
-public class DataProviderListRepository : DataProvider, IDataProvider
+public class DataGeneratorListRepository : DataGenerator, IDataGenerator
 {
     private readonly IRepository<Player> _playerRepository;
     private readonly IRepository<Opponent> _opponentRepository;
-    public DataProviderListRepository(IRepository<Player> playerRepository, IRepository<Opponent> opponentRepository)
+    public DataGeneratorListRepository(IRepository<Player> playerRepository, IRepository<Opponent> opponentRepository)
     {
         _playerRepository = playerRepository;
         _opponentRepository = opponentRepository;
     }
 
-    public override void ViewDataProviderInfo()
+    public override void ViewDataSourceInfo()
     {
         Console.BackgroundColor = ConsoleColor.DarkGray;
         Console.ForegroundColor = ConsoleColor.Black;
