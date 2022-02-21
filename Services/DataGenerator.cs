@@ -354,7 +354,7 @@ public abstract class DataGenerator : IDataGenerator
                         Position = Position.Attacker,
                         Nationality = "Gabon",
                         MarketValue = 15_000_000m,
-                        WeeklyWage = 800_000m,
+                        WeeklyWage = 80_000m,
                         DateOfBirth = new DateTime(1989, 06, 18),
                         ContractTo = new DateTime(2025, 06, 30),
                         IsCaptain = false

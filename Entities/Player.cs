@@ -2,11 +2,6 @@
 
 public class Player : EntityBase
 {
-    //public Player()
-    //{
-    //    IsCaptain = false;
-    //}
-
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
     public string? Number { get; set; }
@@ -25,7 +20,8 @@ public class Player : EntityBase
         sb.AppendLine($"    FirstName {FirstName}   LastName: {LastName}");
         sb.AppendLine($"    Position: {Position}    Number: {Number}    Nationality: {Nationality}");
         sb.AppendLine($"    Age: {DateTime.Now.Year - DateOfBirth.Year}     Date of birth: {DateOfBirth.ToShortDateString()}");
-        sb.AppendLine($"    Marker Value: {MarketValue} €   Weekly Wage: {WeeklyWage} €");
+        sb.AppendLine($"    Marker Value: {MarketValue.ToString("##,##", new NumberFormatInfo() { NumberGroupSeparator = " " })} €   " +
+                            $"Weekly Wage: {WeeklyWage.ToString("##,##", new NumberFormatInfo() { NumberGroupSeparator = " " })} €");
         sb.Append($"    ContractTo: {ContractTo.ToShortDateString()}");
 
         if (IsCaptain is true)

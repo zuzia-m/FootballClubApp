@@ -1,14 +1,16 @@
 ﻿namespace FootballClubApp.Services;
 
-public class UserCommunication : IUserCommunication
+public class UserCommunication : UserCommunicationBase, IUserCommunication
 {
     private readonly IRepository<Player> _playerRepository;
     private readonly IRepository<Opponent> _opponentRepository;
+    private readonly ISpecificInfoProvider _specificInfoProvider;
 
-    public UserCommunication(IRepository<Player> playerRepository, IRepository<Opponent> opponentRepository)
+    public UserCommunication(IRepository<Player> playerRepository, IRepository<Opponent> opponentRepository, ISpecificInfoProvider specificInfoProvider)
     {
         _playerRepository = playerRepository;
         _opponentRepository = opponentRepository;
+        _specificInfoProvider = specificInfoProvider;
     }
 
     public void ChooseWhatToDo()
@@ -18,13 +20,15 @@ public class UserCommunication : IUserCommunication
         while (!CloseApp)
         {
             Console.WriteLine();
-            WritelineColor("1 - View all entities\n" +
+            WritelineColor("--- MAIN MENU ---\n" +
+                "1 - View all entities\n" +
                 "2 - Add new entity\n" +
                 "3 - Find entity by id\n" +
                 "4 - Remove entity from memory\n" +
+                "5 - Get specific information...\n" +
                 "X - Close the app and save changes\n", ConsoleColor.Cyan);
 
-            var userInput = GetInputFromUser("What you want to do? \nPress key 1, 2, 3, 4 or X: ").ToUpper();
+            var userInput = GetInputFromUser("What you want to do? \nPress key 1, 2, 3, 4, 5 or X: ").ToUpper();
 
             switch (userInput)
             {
@@ -84,6 +88,12 @@ public class UserCommunication : IUserCommunication
                     }
                     break;
 
+                case "5": // Get specific info...
+
+                    _specificInfoProvider.GetSpecificInfo();
+
+                    break;
+
                 case "X": // Close app and Save changes
                     CloseApp = CloseAppSaveChanges(_playerRepository, _opponentRepository);
                     break;
@@ -131,13 +141,13 @@ public class UserCommunication : IUserCommunication
                     var choice = GetInputFromUser("Is this player the team captain?\nPress Y if YES\t\tPress N if NO").ToUpper();
                     if (choice == "Y")
                     {
-                        var newPlayer = new Captain { FirstName = firstName, LastName = lastName, Number = number, Position = (Position)positionValue };
+                        var newPlayer = new Player { FirstName = firstName, LastName = lastName, Number = number, Position = (Position)positionValue, IsCaptain = true };
                         playerRepository.Add(newPlayer);
                         break;
                     }
                     if (choice == "N")
                     {
-                        var newPlayer = new Player { FirstName = firstName, LastName = lastName, Number = number, Position = (Position)positionValue };
+                        var newPlayer = new Player { FirstName = firstName, LastName = lastName, Number = number, Position = (Position)positionValue, IsCaptain = false };
                         playerRepository.Add(newPlayer);
                         break;
                     }
@@ -247,29 +257,5 @@ public class UserCommunication : IUserCommunication
                 WritelineColor("Please choose Yes or No:", ConsoleColor.Red);
             }
         }
-    }
-
-    private string GetInputFromUser(string comment)
-    {
-        WritelineColor(comment, ConsoleColor.DarkYellow);
-        string userInput = Console.ReadLine();
-        return userInput;
-    }
-
-    private void EmptyInputWarning(ref string? input, string inputName)
-    {
-        while (String.IsNullOrEmpty(input))
-        {
-            WritelineColor($"This input can not be empty.", ConsoleColor.Red);
-            input = GetInputFromUser($"{inputName}:");
-        }
-    }
-
-    private void WritelineColor(string text, ConsoleColor foregroundColor, ConsoleColor backgroundColor = default)
-    {
-        Console.ForegroundColor = foregroundColor;
-        Console.BackgroundColor = backgroundColor;
-        Console.WriteLine(text);
-        Console.ResetColor();
     }
 }
