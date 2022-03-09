@@ -1,10 +1,11 @@
 ﻿namespace FootballClubApp.Data;
 
 using Microsoft.EntityFrameworkCore;
+using FootballClubApp.Data.Entities;
 
 public class FootballClubAppDbContext : DbContext
 {
-    private readonly string _connectionString = @"Server=LAPTOP-KJAE0SCE\SQLEXPRESS;Database=FootballAppDb;Trusted_Connection=True";
+    private readonly string _connectionString = @"Server=(local)\SQLEXPRESS;Database=FootballAppDb;Trusted_Connection=True";
     public DbSet<Player> Players => Set<Player>();
     public DbSet<Opponent> Opponents => Set<Opponent>();
 
