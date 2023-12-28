@@ -1,6 +1,6 @@
 ﻿namespace FootballClubApp.Data.Repositories;
 
-public class ListRepository<T> : IRepository<T>
+public class FileRepository<T> : IRepository<T>
         where T : class, IEntity, new()
 {
     private readonly List<T> _items = new();
