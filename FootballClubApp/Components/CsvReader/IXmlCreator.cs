@@ -3,7 +3,8 @@
 public interface IXmlCreator
 {
     void CreateXml();
+
     void QueryXml();
+
     void CreateXmlJoined();
 }
-

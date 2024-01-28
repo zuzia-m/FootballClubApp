@@ -1,6 +1,4 @@
-﻿using FootballClubApp.Components.CsvReader.Models;
-
-namespace FootballClubApp.Components.CsvReader.Extensions;
+﻿namespace FootballClubApp.Components.CsvReader.Extensions;
 
 public static class CarExtensions
 {

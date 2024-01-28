@@ -1,6 +1,6 @@
 ﻿namespace FootballClubApp;
 
-public class App : IApp // main app
+public class App : IApp
 {
     private readonly IDataGenerator _dataGenerator;
     private readonly IUserCommunication _userCommunication;
@@ -12,6 +12,7 @@ public class App : IApp // main app
         _userCommunication = userCommunication;
         _eventHandlerService = eventHandlerService;
     }
+
     public void Run()
     {
         Console.OutputEncoding = Encoding.UTF8;

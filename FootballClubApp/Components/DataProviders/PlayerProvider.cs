@@ -185,6 +185,7 @@ public class PlayerProvider : IPlayerProvider
         var players = _playerRepository.GetAll();
         return players.Single(x => x.Id == id);
     }
+
     public Player SingleOrDefaultById(int id)
     {
         var players = _playerRepository.GetAll();

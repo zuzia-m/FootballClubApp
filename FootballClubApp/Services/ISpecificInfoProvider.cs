@@ -4,4 +4,3 @@ public interface ISpecificInfoProvider
 {
     public void GetSpecificInfo();
 }
-

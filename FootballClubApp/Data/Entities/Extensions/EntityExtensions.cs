@@ -1,7 +1,7 @@
 ﻿namespace FootballClubApp.Data.Entities.Extensions;
 
-using System.Text.Json;
 using FootballClubApp.Data.Entities;
+using System.Text.Json;
 
 public static class EntityExtensions
 {
@@ -11,4 +11,3 @@ public static class EntityExtensions
         return JsonSerializer.Deserialize<T>(json);
     }
 }
-

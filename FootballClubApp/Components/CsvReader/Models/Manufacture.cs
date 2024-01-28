@@ -6,4 +6,3 @@ public class Manufacture
     public string Country { get; set; }
     public int Year { get; set; }
 }
-

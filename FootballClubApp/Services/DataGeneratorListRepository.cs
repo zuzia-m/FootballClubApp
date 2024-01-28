@@ -1,9 +1,10 @@
 ﻿namespace FootballClubApp.Services;
 
-public class DataGeneratorListRepository : DataGenerator, IDataGenerator
+public class DataGeneratorListRepository : DataGenerator
 {
     private readonly IRepository<Player> _playerRepository;
     private readonly IRepository<Opponent> _opponentRepository;
+
     public DataGeneratorListRepository(IRepository<Player> playerRepository, IRepository<Opponent> opponentRepository)
     {
         _playerRepository = playerRepository;

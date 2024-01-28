@@ -50,12 +50,12 @@ public class UserCommunication : UserCommunicationBase, IUserCommunication
                     var userChoiceToAdd = GetInputFromUser("P - Add new PLAYER\nO - Add new OPPONENT\nQ - leave and go to MENU").ToUpper();
                     if (userChoiceToAdd == "P")
                     {
-                        AddNewPlayer(_playerRepository);
+                        AddNewPlayer();
                         break;
                     }
                     if (userChoiceToAdd == "O")
                     {
-                        AddNewOpponent(_opponentRepository);
+                        AddNewOpponent();
                         break;
                     }
                     break;
@@ -89,13 +89,11 @@ public class UserCommunication : UserCommunicationBase, IUserCommunication
                     break;
 
                 case "5": // Get specific info...
-
                     _specificInfoProvider.GetSpecificInfo();
-
                     break;
 
                 case "X": // Close app and Save changes
-                    CloseApp = CloseAppSaveChanges(_playerRepository, _opponentRepository);
+                    CloseApp = CloseAppSaveChanges();
                     break;
 
                 default:
@@ -121,7 +119,7 @@ public class UserCommunication : UserCommunicationBase, IUserCommunication
         }
     }
 
-    private void AddNewPlayer(IRepository<Player> playerRepository)
+    private void AddNewPlayer()
     {
         var firstName = GetInputFromUser("FirstName:");
         EmptyInputWarning(ref firstName, "FirstName:");
@@ -142,13 +140,13 @@ public class UserCommunication : UserCommunicationBase, IUserCommunication
                     if (choice == "Y")
                     {
                         var newPlayer = new Player { FirstName = firstName, LastName = lastName, Number = number, Position = (Position)positionValue, IsCaptain = true };
-                        playerRepository.Add(newPlayer);
+                        _playerRepository.Add(newPlayer);
                         break;
                     }
                     if (choice == "N")
                     {
                         var newPlayer = new Player { FirstName = firstName, LastName = lastName, Number = number, Position = (Position)positionValue, IsCaptain = false };
-                        playerRepository.Add(newPlayer);
+                        _playerRepository.Add(newPlayer);
                         break;
                     }
                     else
@@ -165,7 +163,7 @@ public class UserCommunication : UserCommunicationBase, IUserCommunication
         }
     }
 
-    private void AddNewOpponent(IRepository<Opponent> opponentRepository)
+    private void AddNewOpponent()
     {
         var teamName = GetInputFromUser("Team Name:");
         EmptyInputWarning(ref teamName, "Team Name:");
@@ -177,7 +175,7 @@ public class UserCommunication : UserCommunicationBase, IUserCommunication
             if (isParsed && competitionValue > 0 && competitionValue <= 4)
             {
                 var newOpponent = new Opponent { TeamName = teamName, Competition = (Competition)competitionValue };
-                opponentRepository.Add(newOpponent);
+                _opponentRepository.Add(newOpponent);
                 break;
             }
             else
@@ -236,15 +234,15 @@ public class UserCommunication : UserCommunicationBase, IUserCommunication
         }
     }
 
-    private bool CloseAppSaveChanges(IRepository<Player> playerRepository, IRepository<Opponent> opponentRepository)
+    private bool CloseAppSaveChanges()
     {
         while (true)
         {
             var choice = GetInputFromUser("Do you want to save changes?\nPress Y if YES\t\tPress N if NO").ToUpper();
             if (choice == "Y")
             {
-                playerRepository.Save();
-                opponentRepository.Save();
+                _playerRepository.Save();
+                _opponentRepository.Save();
                 WritelineColor("Changes successfully saved.", ConsoleColor.Green);
                 return true;
             }

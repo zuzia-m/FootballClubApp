@@ -7,4 +7,3 @@ public static class PlayesHelper
         return query.Where(x => x.Nationality == nationality);
     }
 }
-

@@ -5,6 +5,7 @@ namespace FootballClubApp.Components.CsvReader;
 public class XmlCreator : IXmlCreator
 {
     private readonly ICsvReader _csvReader;
+
     public XmlCreator(ICsvReader csvReader)
     {
         _csvReader = csvReader;

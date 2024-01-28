@@ -1,5 +1,4 @@
-﻿using FootballClubApp.Components.CsvReader.Models;
-using FootballClubApp.Components.CsvReader.Extensions;
+﻿using FootballClubApp.Components.CsvReader.Extensions;
 
 namespace FootballClubApp.Components.CsvReader;
 
@@ -11,7 +10,7 @@ public class CsvReader : ICsvReader
         {
             return new List<Car>();
         }
-        
+
         var cars = File.ReadAllLines(filePath)
             .Skip(1)
             .Where(x => x.Length > 1)
@@ -29,7 +28,7 @@ public class CsvReader : ICsvReader
 
         var manufactures = File.ReadAllLines(filePath)
             .Where(x => x.Length > 1)
-            .Select(x => 
+            .Select(x =>
             {
                 var columns = x.Split(',');
                 return new Manufacture()
@@ -43,4 +42,3 @@ public class CsvReader : ICsvReader
         return manufactures.ToList();
     }
 }
-

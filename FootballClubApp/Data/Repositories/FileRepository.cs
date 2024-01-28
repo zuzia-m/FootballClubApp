@@ -8,6 +8,7 @@ public class FileRepository<T> : IRepository<T>
     private readonly string path = $"{typeof(T).Name}_save.json";
 
     public event EventHandler<T>? ItemAdded;
+
     public event EventHandler<T>? ItemRemoved;
 
     public IEnumerable<T> GetAll()
@@ -56,6 +57,7 @@ public class FileRepository<T> : IRepository<T>
         var objectsSerialized = JsonSerializer.Serialize<IEnumerable<T>>(_items);
         File.WriteAllText(path, objectsSerialized);
     }
+
     public IEnumerable<T> Read()
     {
         if (File.Exists(path))

@@ -1,7 +1,7 @@
 ﻿namespace FootballClubApp.Data;
 
-using Microsoft.EntityFrameworkCore;
 using FootballClubApp.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 public class FootballClubAppDbContext : DbContext

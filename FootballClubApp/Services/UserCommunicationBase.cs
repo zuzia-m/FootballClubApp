@@ -1,4 +1,5 @@
 ﻿namespace FootballClubApp.Services;
+
 public abstract class UserCommunicationBase
 {
     protected void WritelineColor(string text, ConsoleColor foregroundColor, ConsoleColor backgroundColor = default)
@@ -12,8 +13,7 @@ public abstract class UserCommunicationBase
     protected string GetInputFromUser(string comment)
     {
         WritelineColor(comment, ConsoleColor.DarkYellow);
-        string userInput = Console.ReadLine();
-        return userInput;
+        return Console.ReadLine()!;
     }
 
     protected void EmptyInputWarning(ref string? input, string inputName)

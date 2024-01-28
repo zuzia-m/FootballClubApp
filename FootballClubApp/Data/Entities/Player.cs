@@ -12,6 +12,7 @@ public class Player : EntityBase
     public decimal WeeklyWage { get; set; }
     public DateTime DateOfBirth { get; set; }
     public DateTime ContractTo { get; set; }
+
     public override string ToString()
     {
         StringBuilder sb = new();

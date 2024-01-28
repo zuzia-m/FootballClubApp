@@ -20,9 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Resources\Files\fuel.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
